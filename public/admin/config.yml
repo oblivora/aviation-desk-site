@@ -2,8 +2,7 @@ backend:
   name: github
   repo: oblivora/aviation-desk-site
   branch: main
-  base_url: https://decap-cms-oauth-vercel.vercel.app # Public OAuth server
-  auth_endpoint: /api/auth
+  # base_url: https://YOUR-OAUTH-APP.vercel.app (You will fill this in next)
 
 media_folder: "public/images"
 public_folder: "/images"
