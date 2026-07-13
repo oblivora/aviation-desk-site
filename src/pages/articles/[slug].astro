@@ -38,22 +38,27 @@ const formattedDate = d.toLocaleDateString("en-US", {
         <h1>{article.title}</h1>
         <p class="dek">{article.dek}</p>
         
-        <div class="meta-line">
+        <div class="meta-line" style="display: flex; align-items: center; flex-wrap: wrap;">
           {article.publisher && (
-            <>
+            <div style="display: flex; align-items: center; gap: 6px;">
+              {article.publisherImage && (
+                <img src={article.publisherImage} alt={article.publisher} style="width: 24px; height: 24px; border-radius: 50%; object-fit: cover;" />
+              )}
               <span>{article.publisher}</span>
-              <span class="sep">·</span>
-            </>
+              <span class="sep" style="margin: 0 6px;">·</span>
+            </div>
           )}
-          <span>{formattedDate}</span>
-          <span class="sep">·</span>
-          <span>{article.readTime}</span>
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <span>{formattedDate}</span>
+            <span class="sep">·</span>
+            <span>{article.readTime}</span>
+          </div>
         </div>
       </div>
       
       <div class="article-hero-art">
         {article.image ? (
-          <img src={article.image} alt={article.title} class="art" style="object-fit: cover; width: 100%; max-height: 400px; border-radius: 12px; margin-bottom: 2rem;" />
+          <img src={article.image} alt={article.title} class="art" style="object-fit: cover; width: 100%; max-height: 280px; border-radius: 12px; margin-bottom: 2rem; object-position: center;" />
         ) : (
           <svg class="art" viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
             <defs>

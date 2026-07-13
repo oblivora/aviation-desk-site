@@ -23,7 +23,8 @@ collections:
       - {label: "Dek (Subtitle)", name: "dek", widget: "text"}
       - {label: "Excerpt", name: "excerpt", widget: "text"}
       - {label: "Image", name: "image", widget: "image", required: false}
-      - {label: "Publisher", name: "publisher", widget: "string", required: false}
+      - {label: "Publisher Name", name: "publisher", widget: "string", required: false}
+      - {label: "Publisher Avatar", name: "publisherImage", widget: "image", required: false}
       - {label: "Accent Hue (0-360)", name: "accent", widget: "number", default: 4, value_type: "int"}
       - {label: "Featured", name: "featured", widget: "boolean", default: false, required: false}
       - {label: "Body", name: "body", widget: "markdown"}

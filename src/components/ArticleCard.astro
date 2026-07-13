@@ -10,6 +10,7 @@ export interface ArticleProps {
   accent: number;
   image?: string;
   publisher?: string;
+  publisherImage?: string;
 }
 
 const { article } = Astro.props as { article: ArticleProps };
@@ -65,15 +66,20 @@ const formattedDate = d.toLocaleDateString("en-US", {
     </a>
   </h3>
   <p class="excerpt">{article.excerpt}</p>
-  <div class="meta-line">
+  <div class="meta-line" style="display: flex; align-items: center; flex-wrap: wrap;">
     {article.publisher && (
-      <>
+      <div style="display: flex; align-items: center; gap: 6px;">
+        {article.publisherImage && (
+          <img src={article.publisherImage} alt={article.publisher} style="width: 20px; height: 20px; border-radius: 50%; object-fit: cover;" />
+        )}
         <span>{article.publisher}</span>
-        <span class="sep">·</span>
-      </>
+        <span class="sep" style="margin: 0 6px;">·</span>
+      </div>
     )}
-    <span>{formattedDate}</span>
-    <span class="sep">·</span>
-    <span>{article.readTime}</span>
+    <div style="display: flex; align-items: center; gap: 6px;">
+      <span>{formattedDate}</span>
+      <span class="sep">·</span>
+      <span>{article.readTime}</span>
+    </div>
   </div>
 </article>
