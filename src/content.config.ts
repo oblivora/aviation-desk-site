@@ -12,6 +12,7 @@ const articles = defineCollection({
     date: z.coerce.date(),
     readTime: z.string(),
     image: z.string().optional(),
+    imageCredit: z.string().optional(),
     publisher: z.string().optional(),
     publisherImage: z.string().optional(),
     accent: z.number(),

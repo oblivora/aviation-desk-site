@@ -58,7 +58,14 @@ const formattedDate = d.toLocaleDateString("en-US", {
       
       <div class="article-hero-art">
         {article.image ? (
-          <img src={article.image} alt={article.title} class="art" style="object-fit: cover; width: 100%; max-height: 280px; border-radius: 12px; margin-bottom: 2rem; object-position: center;" />
+          <div style="margin-bottom: 2rem;">
+            <img src={article.image} alt={article.title} class="art" style="object-fit: cover; width: 100%; max-height: 280px; border-radius: 12px; object-position: center; margin-bottom: 0.5rem;" />
+            {article.imageCredit && (
+              <p style="text-align: right; font-size: 0.85rem; color: #888; font-style: italic; margin-top: 0; padding-right: 0.5rem;">
+                Photo: {article.imageCredit}
+              </p>
+            )}
+          </div>
         ) : (
           <svg class="art" viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
             <defs>
