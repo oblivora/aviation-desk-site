@@ -21,7 +21,7 @@ const skyBottom = `hsl(${hue}, 55%, 82%)`;
 const line = `hsl(${hue}, 60%, 45%)`;
 const artId = `card-${article.id}`;
 
-const d = new Date(article.date + "T00:00:00");
+const d = new Date(article.date);
 const formattedDate = d.toLocaleDateString("en-US", {
   month: "short",
   day: "numeric",
