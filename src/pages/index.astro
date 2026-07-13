@@ -1,0 +1,79 @@
+---
+import Layout from '../layouts/Layout.astro';
+import HeroCard from '../components/HeroCard.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import { getCollection } from 'astro:content';
+
+const allArticles = await getCollection('articles');
+const sortedArticles = allArticles.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const featured = sortedArticles.find(a => a.data.featured) || sortedArticles[0];
+const rest = sortedArticles.filter(a => a.id !== featured.id);
+
+const categories = [...new Set(allArticles.map(a => a.data.category))];
+---
+
+<Layout>
+  <main>
+    <section class="hero wrap" id="hero">
+      <HeroCard article={featured.data} />
+    </section>
+
+    <section class="wrap">
+      <div class="section-head" id="grid-head">
+        <h2>Latest Stories</h2>
+        <span class="count" id="story-count">{rest.length} {rest.length === 1 ? 'story' : 'stories'}</span>
+      </div>
+      
+      <div class="filters" id="filters">
+        <button class="chip active" data-cat="all">All Stories</button>
+        {categories.map(c => (
+          <button class="chip" data-cat={c}>{c}</button>
+        ))}
+      </div>
+      
+      <div class="grid" id="grid">
+        {rest.map(article => (
+          <div class="grid-item" data-cat={article.data.category}>
+            <ArticleCard article={article.data} />
+          </div>
+        ))}
+      </div>
+    </section>
+  </main>
+
+  <script is:inline>
+    // Client-side filtering logic
+    document.addEventListener("DOMContentLoaded", () => {
+      const filters = document.getElementById("filters");
+      const grid = document.getElementById("grid");
+      const countEl = document.getElementById("story-count");
+      
+      if (filters && grid) {
+        filters.addEventListener("click", (e) => {
+          const btn = e.target.closest(".chip");
+          if (!btn) return;
+          
+          filters.querySelectorAll(".chip").forEach((c) => c.classList.remove("active"));
+          btn.classList.add("active");
+          
+          const cat = btn.dataset.cat;
+          const items = grid.querySelectorAll(".grid-item");
+          let visibleCount = 0;
+          
+          items.forEach(item => {
+            if (cat === "all" || item.dataset.cat === cat) {
+              item.style.display = "block";
+              visibleCount++;
+            } else {
+              item.style.display = "none";
+            }
+          });
+          
+          if (countEl) {
+            countEl.textContent = `${visibleCount} ${visibleCount === 1 ? 'story' : 'stories'}`;
+          }
+        });
+      }
+    });
+  </script>
+</Layout>

@@ -1,0 +1,24 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "public/images"
+public_folder: "/images"
+
+collections:
+  - name: "articles"
+    label: "Articles"
+    folder: "src/content/articles"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Slug", name: "slug", widget: "string"}
+      - {label: "Category", name: "category", widget: "select", options: ["Airlines", "Military", "Technology", "Industry", "Incidents", "Drones"]}
+      - {label: "Publish Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false}
+      - {label: "Read Time", name: "readTime", widget: "string"}
+      - {label: "Dek (Subtitle)", name: "dek", widget: "text"}
+      - {label: "Excerpt", name: "excerpt", widget: "text"}
+      - {label: "Accent Hue (0-360)", name: "accent", widget: "number", default: 4, value_type: "int"}
+      - {label: "Featured", name: "featured", widget: "boolean", default: false, required: false}
+      - {label: "Body", name: "body", widget: "markdown"}

@@ -1,0 +1,61 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { 
+  title = "Aviation Desk — Aviation Stories, Explained", 
+  description = "Clear, well-reported stories on airlines, aircraft technology, incidents, and the industry behind them." 
+} = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css" />
+  
+  <!-- Decap CMS Identity Widget (for logging in) -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+</head>
+<body>
+  <Header />
+  
+  <slot />
+  
+  <Footer />
+
+  <script is:inline>
+    // Navigation toggle logic
+    document.addEventListener("DOMContentLoaded", () => {
+      const toggle = document.getElementById("navToggle");
+      const nav = document.getElementById("mainNav");
+      if (toggle && nav) {
+        toggle.addEventListener("click", () => {
+          nav.classList.toggle("open");
+        });
+      }
+    });
+
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", user => {
+        if (!user) {
+          window.netlifyIdentity.on("login", () => {
+            document.location.href = "/admin/";
+          });
+        }
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+---
+export interface ArticleProps {
+  slug: string;
+  category: string;
+  title: string;
+  dek: string;
+  date: string;
+  readTime: string;
+  accent: number;
+}
+
+const { article } = Astro.props as { article: ArticleProps };
+
+const hue = article.accent || 4;
+const skyTop = `hsl(${hue}, 70%, 92%)`;
+const skyBottom = `hsl(${hue}, 55%, 82%)`;
+const line = `hsl(${hue}, 60%, 45%)`;
+const artId = `hero`;
+
+const d = new Date(article.date + "T00:00:00");
+const formattedDate = d.toLocaleDateString("en-US", {
+  month: "short",
+  day: "numeric",
+  year: "numeric",
+});
+---
+
+<div class="hero-card">
+  <a href={`/articles/${article.slug}`} class="hero-art" aria-label={article.title}>
+    <svg class="art" viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id={`${artId}-sky`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color={skyTop}/>
+          <stop offset="1" stop-color={skyBottom}/>
+        </linearGradient>
+      </defs>
+      <rect width="400" height="260" fill={`url(#${artId}-sky)`}/>
+      <path d="M0 190 Q 100 170 200 188 T 400 182" stroke={line} stroke-opacity="0.35" stroke-width="1.5" fill="none"/>
+      <path d="M0 210 Q 120 195 220 212 T 400 205" stroke={line} stroke-opacity="0.22" stroke-width="1.5" fill="none"/>
+      <g transform="translate(230,95) rotate(-18)">
+        <path d="M0 0 L58 4 L64 8 L58 11 L0 9 L-14 24 L-24 22 L-16 8 L-40 6 L-48 14 L-55 12 L-48 2 L-55 -8 L-48 -10 L-40 -2 L-16 -4 L-24 -18 L-14 -20 Z"
+          fill={line} fill-opacity="0.85"/>
+      </g>
+    </svg>
+  </a>
+  <div class="hero-text">
+    <span class="eyebrow">{article.category}</span>
+    <h1>
+      <a href={`/articles/${article.slug}`} class="headline-link flight-link">
+        {article.title}
+        <span class="trace" aria-hidden="true">
+          <svg viewBox="0 0 240 10" preserveAspectRatio="none">
+            <path d="M2 6 L220 6"/>
+            <g class="plane" transform="translate(216,6) rotate(0)">
+              <path d="M0 -3 L9 0 L0 3 L2 0 Z" fill="var(--red)"/>
+            </g>
+          </svg>
+        </span>
+      </a>
+    </h1>
+    <p class="dek">{article.dek}</p>
+    <div class="meta-line">
+      <span>{formattedDate}</span>
+      <span class="sep">·</span>
+      <span>{article.readTime}</span>
+    </div>
+  </div>
+</div>
