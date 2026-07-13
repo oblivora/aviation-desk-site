@@ -3,6 +3,7 @@ backend:
   repo: oblivora/aviation-desk-site
   branch: main
   base_url: https://netlify-cms.adrianub.vercel.app
+  auth_endpoint: /api/auth
 
 media_folder: "public/images"
 public_folder: "/images"
