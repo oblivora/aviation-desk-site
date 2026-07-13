@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: https://github.com/oblivora/aviation-desk-site
+  repo: oblivora/aviation-desk-site
   branch: main
   base_url: https://decap-cms-oauth-vercel.vercel.app # Public OAuth server
   auth_endpoint: /api/auth
