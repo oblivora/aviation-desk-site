@@ -8,7 +8,7 @@ dek: The same signal that powers flight trackers online is also reshaping how
   air traffic control works.
 excerpt: ADS-B broadcasts an aircraft's GPS position every second — which is why
   anyone can watch flights live on a map.
-image: /images/sumedha-photo.jpeg
+image: ""
 publisher: Shumedha Sharma
 accent: 358
 featured: false
