@@ -1,11 +1,15 @@
 ---
 title: "Inside the Cockpit: How ADS-B Turned the Sky Into an Open Network"
-slug: "ads-b-surveillance-explained"
-category: "Technology"
-dek: "The same signal that powers flight trackers online is also reshaping how air traffic control works."
-excerpt: "ADS-B broadcasts an aircraft's GPS position every second — which is why anyone can watch flights live on a map."
+slug: ads-b-surveillance-explained
+category: Technology
 date: 2026-04-29
-readTime: "5 min read"
+readTime: 5 min read
+dek: The same signal that powers flight trackers online is also reshaping how
+  air traffic control works.
+excerpt: ADS-B broadcasts an aircraft's GPS position every second — which is why
+  anyone can watch flights live on a map.
+image: /images/sumedha-photo.jpeg
+publisher: Shumedha Sharma
 accent: 358
 featured: false
 ---
