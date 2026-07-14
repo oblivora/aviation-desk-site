@@ -32,18 +32,13 @@ The plea highlights several recurring concerns, including:
 * Reduced baggage allowances.
 * The absence of a dedicated mechanism to regulate airline pricing practices.
 
-
 The court had earlier, on January 20, warned that it would issue direct orders to curb alleged overcharging by airlines if the Centre failed to act on the matter.
 
-### 
-Centre's response
-
+### **Centre's response**
 
 During the hearing, the Centre informed the court that rules under the Bharatiya Vayuyan Adhiniyam, 2024 — which grants the **Directorate General of Civil Aviation (DGCA)** expanded powers to regulate airlines — have now been finalised. These rules are expected to be placed before Parliament during the **Monsoon Session**, scheduled from **July 20 to August 13**. The government has not yet made the contents of the draft rules public.
 
-### 
-What happens next?
-
+### **What happens next?**
 
 The Supreme Court has directed the Centre to file a sealed copy of the rules within two weeks, independent of the parliamentary timeline. The matter has been listed for further hearing on August 3.
 The case comes amid continuing public criticism over steep fare increases on high-demand international routes, particularly those connecting Gulf countries with Kerala, where fares have reportedly risen several times over during peak travel periods.
