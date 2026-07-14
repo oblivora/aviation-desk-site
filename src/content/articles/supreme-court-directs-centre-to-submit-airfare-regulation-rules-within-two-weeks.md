@@ -14,7 +14,7 @@ excerpt: The Supreme Court has directed the Centre to submit, within two weeks,
   concerning sharp airfare fluctuations and passenger protection in Indian civil
   aviation.
 image: /images/supreme_court_building_airplanes…_2k_202607141841.jpeg
-imageCredit: ""
+imageCredit: Illustration
 publisher: Aman Sharma
 publisherImage: /images/bbr338ba_400x400.jpg
 accent: 120
