@@ -491,6 +491,242 @@ a.headline-link:hover .trace .plane {
 }
 
 /* =========================================================================
+   LEGAL / POLICY PAGES
+   ========================================================================= */
+.legal-page {
+  padding: 0 var(--gutter);
+}
+
+.legal-wrap {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 0 80px;
+}
+
+.legal-header {
+  margin-bottom: 40px;
+}
+
+.legal-header .eyebrow {
+  display: block;
+  margin-bottom: 12px;
+}
+
+.legal-header h1 {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  margin: 0 0 14px;
+}
+
+.legal-updated {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--ink-faint);
+  margin: 0;
+}
+
+/* --- Table of Contents --- */
+.legal-toc {
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 24px 28px;
+  margin-bottom: 48px;
+}
+
+.legal-toc .toc-title {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink-faint);
+  margin: 0 0 14px;
+}
+
+.legal-toc ol {
+  margin: 0;
+  padding-left: 20px;
+  list-style: decimal;
+}
+
+.legal-toc ol li {
+  padding: 5px 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+.legal-toc ol li a {
+  color: var(--ink-soft);
+  transition: color 0.15s ease;
+}
+
+.legal-toc ol li a:hover {
+  color: var(--red);
+}
+
+/* --- Legal Body --- */
+.legal-body section {
+  margin-bottom: 40px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--line);
+}
+
+.legal-body section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.legal-body h2 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 600;
+  margin: 0 0 18px;
+  line-height: 1.25;
+}
+
+.legal-body h2 .section-num {
+  color: var(--red);
+  margin-right: 4px;
+}
+
+.legal-body h3 {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 600;
+  margin: 24px 0 10px;
+  color: var(--ink);
+}
+
+.legal-body h4 {
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0 0 6px;
+  color: var(--ink);
+}
+
+.legal-body p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  margin: 0 0 14px;
+}
+
+.legal-body ul {
+  padding-left: 20px;
+  margin: 0 0 16px;
+}
+
+.legal-body ul li {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  margin-bottom: 6px;
+}
+
+.legal-body ul li::marker {
+  color: var(--red);
+}
+
+.legal-body .inline-link {
+  color: var(--red);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-color: rgba(200, 16, 46, 0.3);
+  transition: text-decoration-color 0.15s ease;
+}
+
+.legal-body .inline-link:hover {
+  text-decoration-color: var(--red);
+}
+
+/* --- Cookie Table --- */
+.cookie-table-wrap {
+  overflow-x: auto;
+  margin: 16px 0;
+}
+
+.cookie-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.cookie-table th {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-faint);
+  text-align: left;
+  padding: 10px 16px;
+  border-bottom: 2px solid var(--line);
+  background: var(--paper);
+}
+
+.cookie-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+
+.cookie-table td strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.cookie-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* --- Rights / Jurisdiction Blocks --- */
+.rights-block {
+  background: var(--paper-raised);
+  border-left: 3px solid var(--red);
+  padding: 18px 22px;
+  margin: 16px 0;
+  border-radius: 0 4px 4px 0;
+}
+
+.rights-block h4 {
+  margin-bottom: 8px;
+}
+
+.rights-block p {
+  margin: 0;
+}
+
+/* --- Contact Block --- */
+.contact-block {
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 20px 24px;
+  margin-top: 12px;
+}
+
+.contact-block p {
+  margin: 0 0 4px;
+}
+
+.contact-block p:last-child {
+  margin-bottom: 0;
+}
+
+/* --- Back Link on Legal Page --- */
+.legal-back {
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+
+/* =========================================================================
    FOOTER
    ========================================================================= */
 footer.site-footer {
