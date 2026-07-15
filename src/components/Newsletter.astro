@@ -1,0 +1,73 @@
+---
+// Newsletter Signup Component — MailerLite Integration
+// Form ID: 43771726 | Account: 2511483
+
+interface Props {
+  variant?: 'banner' | 'inline';
+}
+
+const { variant = 'banner' } = Astro.props;
+---
+
+<section class={`newsletter ${variant}`} id="newsletter">
+  <div class="newsletter-inner">
+    <div class="newsletter-text">
+      <span class="eyebrow">Stay Informed</span>
+      <h3 class="newsletter-heading">Never Miss a Story</h3>
+      <p class="newsletter-dek">
+        Subscribe to Aviation Desk for weekly updates on airlines, aircraft technology, and the stories behind the industry. Free, no spam.
+      </p>
+    </div>
+    <div class="newsletter-form-wrap">
+      <!-- MailerLite Embedded Form -->
+      <div id="mlb2-43771726" class="ml-form-embedContainer ml-subscribe-form ml-subscribe-form-43771726">
+        <div class="ml-form-align-center">
+          <div class="ml-form-embedWrapper embedForm">
+            <div class="ml-form-embedBody ml-form-embedBodyDefault row-form">
+              <form class="ml-block-form" action="https://assets.mailerlite.com/jsonp/2511483/forms/193063203173827754/subscribe" data-code="" method="post" target="_blank">
+                <div class="ml-form-formContent">
+                  <div class="ml-form-fieldRow ml-last-item">
+                    <div class="ml-field-group ml-field-email ml-validate-email ml-validate-required">
+                      <input aria-label="email" aria-required="true" type="email" class="form-control" data-inputmask="" name="fields[email]" placeholder="your@email.com" autocomplete="email">
+                    </div>
+                  </div>
+                </div>
+                <input type="hidden" name="ml-submit" value="1">
+                <div class="ml-form-embedSubmit">
+                  <button type="submit" class="primary">
+                    Subscribe
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;margin-left:6px;">
+                      <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </button>
+                  <button disabled="disabled" style="display: none;" type="button" class="loading">
+                    <div class="ml-form-embedSubmitLoad"></div>
+                    <span class="sr-only">Loading...</span>
+                  </button>
+                </div>
+                <input type="hidden" name="anticsrf" value="true">
+              </form>
+            </div>
+            <div class="ml-form-successBody row-success" style="display: none">
+              <div class="ml-form-successContent">
+                <h4>Thank you!</h4>
+                <p>You're in. Check your inbox to confirm your subscription.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="newsletter-note">
+        By subscribing, you agree to our <a href="/privacy-policy">Privacy Policy</a>.
+      </p>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  function ml_webform_success_43771726() {
+    var $ = ml_jQuery || jQuery;
+    $('.ml-subscribe-form-43771726 .row-success').show();
+    $('.ml-subscribe-form-43771726 .row-form').hide();
+  }
+</script>

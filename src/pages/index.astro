@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import HeroCard from '../components/HeroCard.astro';
 import ArticleCard from '../components/ArticleCard.astro';
+import Newsletter from '../components/Newsletter.astro';
 import { getCollection } from 'astro:content';
 
 const allArticles = await getCollection('articles');
@@ -39,6 +40,8 @@ const categories = [...new Set(allArticles.map(a => a.data.category))];
         ))}
       </div>
     </section>
+
+    <Newsletter variant="banner" />
   </main>
 
   <script is:inline>

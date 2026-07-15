@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
+import Newsletter from '../../components/Newsletter.astro';
 
 export async function getStaticPaths() {
   const articles = await getCollection('articles');
@@ -89,5 +90,9 @@ const formattedDate = d.toLocaleDateString("en-US", {
       </div>
 
     </article>
+
+    <div class="wrap">
+      <Newsletter variant="inline" />
+    </div>
   </main>
 </Layout>

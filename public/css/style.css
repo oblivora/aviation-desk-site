@@ -725,6 +725,285 @@ a.headline-link:hover .trace .plane {
   padding-top: 24px;
   border-top: 1px solid var(--line);
 }
+/* =========================================================================
+   NEWSLETTER SIGNUP
+   ========================================================================= */
+
+/* -- Banner variant (homepage, full-width dark strip) -- */
+.newsletter.banner {
+  background: var(--ink);
+  color: #fff;
+  padding: 56px var(--gutter);
+  margin-top: 64px;
+}
+
+.newsletter.banner .newsletter-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.newsletter.banner .eyebrow {
+  color: var(--red);
+}
+
+.newsletter.banner .newsletter-heading {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 600;
+  line-height: 1.15;
+  margin: 10px 0 12px;
+  color: #fff;
+}
+
+.newsletter.banner .newsletter-dek {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #9a9a9a;
+  margin: 0;
+  max-width: 42ch;
+}
+
+/* -- Inline variant (end of article, compact) -- */
+.newsletter.inline {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 36px 32px;
+  margin: 48px 0 20px;
+  background: var(--paper-raised);
+}
+
+.newsletter.inline .newsletter-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.newsletter.inline .eyebrow {
+  margin-bottom: 2px;
+}
+
+.newsletter.inline .newsletter-heading {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 600;
+  margin: 6px 0 8px;
+  line-height: 1.2;
+}
+
+.newsletter.inline .newsletter-dek {
+  font-size: 14px;
+  color: var(--ink-soft);
+  margin: 0;
+  max-width: 56ch;
+  line-height: 1.6;
+}
+
+
+/* -- MailerLite Form Overrides (shared) -- */
+.ml-form-embedContainer {
+  width: 100% !important;
+  margin: 0 !important;
+}
+
+.ml-form-embedWrapper {
+  background-color: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.ml-form-embedBody {
+  padding: 0 !important;
+}
+
+.ml-form-embedContent {
+  display: none !important; /* We use our own heading/text */
+}
+
+.ml-form-formContent {
+  margin-bottom: 10px !important;
+}
+
+.ml-form-fieldRow {
+  margin: 0 !important;
+}
+
+/* -- MailerLite input -- */
+.ml-form-embedContainer .form-control,
+.ml-form-fieldRow input[type="email"] {
+  font-family: var(--font-body) !important;
+  font-size: 14px !important;
+  padding: 12px 16px !important;
+  border-radius: 4px !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #fff !important;
+  line-height: 1.4 !important;
+  outline: none !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+  transition: border-color 0.15s ease;
+}
+
+.ml-form-embedContainer .form-control::placeholder {
+  color: #666 !important;
+}
+
+.ml-form-embedContainer .form-control:focus {
+  border-color: var(--red) !important;
+}
+
+/* Inline variant: light background inputs */
+.newsletter.inline .ml-form-embedContainer .form-control,
+.newsletter.inline .ml-form-fieldRow input[type="email"] {
+  background: var(--paper) !important;
+  border-color: var(--line) !important;
+  color: var(--ink) !important;
+}
+
+.newsletter.inline .ml-form-embedContainer .form-control::placeholder {
+  color: var(--ink-faint) !important;
+}
+
+.newsletter.inline .ml-form-embedContainer .form-control:focus {
+  border-color: var(--red) !important;
+}
+
+/* -- MailerLite submit button -- */
+.ml-form-embedSubmit {
+  margin: 0 !important;
+}
+
+.ml-form-embedSubmit button.primary {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px;
+  padding: 12px 24px !important;
+  font-family: var(--font-body) !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  background: var(--red) !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 4px !important;
+  cursor: pointer;
+  white-space: nowrap;
+  width: auto !important;
+  transition: background 0.15s ease, transform 0.1s ease;
+  line-height: 1.4 !important;
+  box-shadow: none !important;
+}
+
+.ml-form-embedSubmit button.primary:hover {
+  background: var(--red-dark) !important;
+}
+
+.ml-form-embedSubmit button.primary:active {
+  transform: scale(0.97);
+}
+
+/* -- MailerLite success state -- */
+.ml-form-successContent {
+  padding: 12px 0 !important;
+  text-align: left !important;
+}
+
+.ml-form-successContent h4 {
+  font-family: var(--font-display) !important;
+  font-size: 20px !important;
+  font-weight: 600 !important;
+  margin: 0 0 6px !important;
+  color: inherit !important;
+}
+
+.newsletter.banner .ml-form-successContent h4 {
+  color: #fff !important;
+}
+
+.ml-form-successContent p {
+  font-family: var(--font-body) !important;
+  font-size: 14px !important;
+  color: var(--ink-soft) !important;
+  margin: 0 !important;
+}
+
+.newsletter.banner .ml-form-successContent p {
+  color: #9a9a9a !important;
+}
+
+/* -- MailerLite loading spinner -- */
+.ml-form-embedSubmitLoad:after {
+  border-color: #ffffff #ffffff #ffffff transparent !important;
+}
+
+/* -- Form + button layout -- */
+.ml-block-form {
+  display: flex !important;
+  gap: 10px !important;
+  align-items: flex-start !important;
+}
+
+.ml-block-form .ml-form-formContent {
+  flex: 1 !important;
+}
+
+/* Screen reader only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}
+
+/* -- Newsletter note -- */
+.newsletter-note {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: #555;
+  margin: 10px 0 0;
+}
+
+.newsletter.banner .newsletter-note {
+  color: #666;
+}
+
+.newsletter-note a {
+  color: var(--red);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* -- Responsive -- */
+@media (max-width: 860px) {
+  .newsletter.banner .newsletter-inner {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}
+
+@media (max-width: 560px) {
+  .ml-block-form {
+    flex-direction: column !important;
+  }
+
+  .ml-form-embedSubmit button.primary {
+    width: 100% !important;
+  }
+
+  .newsletter.inline {
+    padding: 28px 22px;
+  }
+}
 
 /* =========================================================================
    FOOTER
