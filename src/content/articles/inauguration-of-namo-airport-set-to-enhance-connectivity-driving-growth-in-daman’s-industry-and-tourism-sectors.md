@@ -5,7 +5,7 @@ slug: namo-airport-daman-direct-connectivity-boost
 category: Incidents
 date: 2026-07-17
 readTime: 4 min
-dek: lliance Air's inaugural Daman-Delhi service cuts an 8–10 hour road journey
+dek: Alliance Air's inaugural Daman-Delhi service cuts an 8–10 hour road journey
   to 2.5 hours by air, linking a region of 22,000+ industrial units to the
   national capital.
 excerpt: Union Civil Aviation Minister Ram Mohan Naidu flagged off Daman's
