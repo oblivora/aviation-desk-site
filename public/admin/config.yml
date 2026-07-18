@@ -29,14 +29,30 @@ collections:
       - {label: "Publisher Avatar", name: "publisherImage", widget: "image", required: false}
       - {label: "Accent Hue (0-360)", name: "accent", widget: "number", default: 4, value_type: "int"}
       - {label: "Featured", name: "featured", widget: "boolean", default: false, required: false}
+      # --- Article Type ---
+      - label: "Article Type"
+        name: "articleType"
+        widget: "select"
+        options:
+          - {label: "Standard Article", value: "standard"}
+          - {label: "Live / Video Article", value: "live"}
+        default: "standard"
+        required: false
+        hint: "Choose 'Live / Video Article' for a video-first layout with the video as the hero"
       # --- Video / Live Stream ---
       - {label: "Video URL (YouTube/Vimeo/Live)", name: "videoUrl", widget: "string", required: false, hint: "Paste a YouTube, Vimeo, or live stream URL"}
       - {label: "Video File (Upload)", name: "videoFile", widget: "file", required: false, hint: "Upload a video file directly"}
       - {label: "Video Caption", name: "videoCaption", widget: "string", required: false}
-      - {label: "Video Position", name: "videoPosition", widget: "select", options: ["end", "body"], default: "end", required: false, hint: "'body' = within article, 'end' = after article body"}
-      # --- Social Media Embed ---
-      - {label: "Social Post URL", name: "socialPostUrl", widget: "string", required: false, hint: "Twitter/X, Instagram, or LinkedIn post URL"}
-      - {label: "Social Post Caption", name: "socialPostCaption", widget: "string", required: false}
+      - {label: "Video Position", name: "videoPosition", widget: "select", options: ["end", "body"], default: "end", required: false, hint: "Only for Standard articles. 'body' = within article, 'end' = after article body"}
+      # --- Social Media Embeds (multiple) ---
+      - label: "Social Media Posts"
+        name: "socialPosts"
+        widget: "list"
+        required: false
+        hint: "Add one or more social media posts (Twitter/X, Instagram, LinkedIn)"
+        fields:
+          - {label: "Post URL", name: "url", widget: "string"}
+          - {label: "Caption (optional)", name: "caption", widget: "string", required: false}
       # --- Event Location ---
       - {label: "Location Name", name: "locationName", widget: "string", required: false, hint: "Venue or place name"}
       - {label: "Location Address", name: "locationAddress", widget: "text", required: false}

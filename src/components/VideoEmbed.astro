@@ -1,0 +1,89 @@
+---
+interface Props {
+  videoUrl?: string;
+  videoFile?: string;
+  videoCaption?: string;
+  isLive?: boolean;
+  variant?: 'standard' | 'hero';
+}
+
+const { videoUrl = '', videoFile = '', videoCaption = '', isLive = false, variant = 'standard' } = Astro.props;
+
+function getYouTubeId(url: string): string | null {
+  const patterns = [
+    /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/live\/)([a-zA-Z0-9_-]{11})/,
+    /youtube\.com\/shorts\/([a-zA-Z0-9_-]{11})/,
+  ];
+  for (const p of patterns) {
+    const m = url.match(p);
+    if (m) return m[1];
+  }
+  return null;
+}
+
+function getVimeoId(url: string): string | null {
+  const m = url.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+  return m ? m[1] : null;
+}
+
+const ytId = videoUrl ? getYouTubeId(videoUrl) : null;
+const vimeoId = videoUrl ? getVimeoId(videoUrl) : null;
+const isHls = videoUrl ? /\.m3u8/i.test(videoUrl) : false;
+const hasContent = !!(videoUrl || videoFile);
+---
+
+{hasContent && (
+  <div class:list={['video-embed', variant === 'hero' ? 'video-embed--hero' : '']}>
+    {isLive && (
+      <div class="video-live-badge">
+        <span class="live-dot"></span>
+        LIVE
+      </div>
+    )}
+    {ytId ? (
+      <div class="video-responsive">
+        <iframe
+          src={`https://www.youtube.com/embed/${ytId}?autoplay=0&rel=0`}
+          title={videoCaption || 'Video'}
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+        ></iframe>
+      </div>
+    ) : vimeoId ? (
+      <div class="video-responsive">
+        <iframe
+          src={`https://player.vimeo.com/video/${vimeoId}?title=0&byline=0&portrait=0`}
+          title={videoCaption || 'Video'}
+          frameborder="0"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </div>
+    ) : isHls ? (
+      <div class="video-responsive">
+        <video id="hls-player" controls playsinline class="video-native"></video>
+      </div>
+    ) : videoFile ? (
+      <div class="video-responsive video-responsive--native">
+        <video controls playsinline class="video-native">
+          <source src={videoFile} />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    ) : videoUrl ? (
+      <div class="video-responsive">
+        <iframe
+          src={videoUrl}
+          title={videoCaption || 'Video'}
+          frameborder="0"
+          allow="autoplay; fullscreen"
+          allowfullscreen
+        ></iframe>
+      </div>
+    ) : null}
+    {videoCaption && (
+      <p class="video-caption">{videoCaption}</p>
+    )}
+  </div>
+)}

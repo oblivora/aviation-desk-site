@@ -17,12 +17,19 @@ const articles = defineCollection({
     publisherImage: z.string().optional(),
     accent: z.number(),
     featured: z.boolean().optional(),
+    // Article Type — "standard" (default) or "live" (video-first layout)
+    articleType: z.enum(['standard', 'live']).optional().default('standard'),
     // Video / Live Stream
     videoUrl: z.string().optional(),
     videoFile: z.string().optional(),
     videoCaption: z.string().optional(),
     videoPosition: z.enum(['body', 'end']).optional().default('end'),
-    // Social Media Embed
+    // Social Media Embeds (multiple posts)
+    socialPosts: z.array(z.object({
+      url: z.string(),
+      caption: z.string().optional(),
+    })).optional(),
+    // Legacy single social post (backwards compat)
     socialPostUrl: z.string().optional(),
     socialPostCaption: z.string().optional(),
     // Event Location

@@ -19,11 +19,14 @@ publisher: Aman Sharma
 publisherImage: /images/bbr338ba_400x400.jpg
 accent: 4
 featured: true
+articleType: "live"
 videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
 videoCaption: "IAF Stratospheric Airship Concept — Demonstration Video"
-videoPosition: "end"
-socialPostUrl: "https://x.com/IAaborneAssets/status/1914625398432190783"
-socialPostCaption: "The IAF shared this update about the AS-HAPS programme on X."
+socialPosts:
+  - url: "https://x.com/IAaborneAssets/status/1914625398432190783"
+    caption: "The IAF shared this update about the AS-HAPS programme on X."
+  - url: "https://www.instagram.com/p/example123/"
+    caption: "Behind-the-scenes look at the airship testing facility."
 locationName: "Skyroot Aerospace Max-Q Campus"
 locationAddress: "GMR Aerospace Park\nHyderabad, Telangana 500108"
 locationWebsite: "https://www.skyroot.in"
