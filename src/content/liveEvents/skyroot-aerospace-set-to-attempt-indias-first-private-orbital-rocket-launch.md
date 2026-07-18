@@ -1,6 +1,7 @@
 ---
 title: Skyroot Aerospace Set to Attempt India's First Private Orbital Rocket Launch
 slug: skyroot-aerospace-vikram-1-first-private-orbital-launch
+isActive: true
 category: Space
 date: 2026-07-18
 dek: Vikram-1 is scheduled to lift off from Sriharikota today, testing whether
