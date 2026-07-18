@@ -9,6 +9,8 @@ dek: Vikram-1 is scheduled to lift off from Sriharikota today, testing whether
 excerpt: Skyroot Aerospace is preparing to launch Vikram-1, India's first
   privately developed orbital rocket, from the Satish Dhawan Space Centre today
   under Mission Aagaman.
+image: https://cdn.prod.website-files.com/67fd1716df7556ab97191c1c/67ff4ef9e039ff6009f55147_sky.webp
+imageCredit: Skyroot Aerospace
 accent: 4
 videoUrl: https://youtu.be/2KKZbSX9SgI?si=Apx0wZSnDCda-cnI
 videoCaption: Watch Live
