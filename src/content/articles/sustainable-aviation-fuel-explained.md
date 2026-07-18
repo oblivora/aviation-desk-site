@@ -7,7 +7,7 @@ excerpt: "Airlines have signed offtake agreements worth billions, yet SAF still 
 date: 2026-06-02
 readTime: "6 min read"
 accent: 4
-featured: true
+featured: false
 ---
 
 Sustainable Aviation Fuel, or SAF, is a drop-in replacement for conventional jet fuel that can be produced from used cooking oil, agricultural waste, municipal solid waste, or synthesized from captured carbon and green hydrogen. Because it's chemically compatible with existing engines and fuel infrastructure, airlines can blend it directly into the tanks of aircraft flying today, without waiting for new propulsion technology.

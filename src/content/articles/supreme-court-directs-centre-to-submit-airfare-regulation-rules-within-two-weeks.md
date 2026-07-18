@@ -18,7 +18,7 @@ imageCredit: Illustration
 publisher: Aman Sharma
 publisherImage: /images/bbr338ba_400x400.jpg
 accent: 120
-featured: true
+featured: false
 ---
 The **Supreme Court** has directed the **Central government** to submit the rules framed under the **Bharatiya Vayuyan Adhiniyam, 2024**, within **two weeks**, as part of an ongoing case concerning the regulation of volatile airfares and passenger rights.
 A bench comprising **Justices Vikram Nath** and **Sandeep Mehta** ordered that the rules be placed before the court in a sealed cover, regardless of whether they have already been tabled in Parliament.

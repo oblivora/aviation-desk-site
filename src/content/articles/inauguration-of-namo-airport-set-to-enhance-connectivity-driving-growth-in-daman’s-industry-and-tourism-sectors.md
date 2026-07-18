@@ -16,7 +16,7 @@ imageCredit: ANI
 publisher: Aman Sharma
 publisherImage: /images/bbr338ba_400x400.jpg
 accent: 4
-featured: true
+featured: false
 ---
 Daman has never had a scheduled flight of its own — until July 16, 2026. That afternoon, an Alliance Air aircraft lifted off from the newly operational **NAMO Airport** on the inaugural Daman–Delhi–Daman service, giving the Union Territory its first direct air link to the national capital.
 

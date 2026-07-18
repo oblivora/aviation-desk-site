@@ -18,7 +18,7 @@ imageCredit: Wikipedia
 publisher: Aman Sharma
 publisherImage: /images/bbr338ba_400x400.jpg
 accent: 4
-featured: true
+featured: false
 ---
 Breeze Airways is deepening its footprint at **Tampa International Airport** **(TPA)** with two fresh nonstop routes — one to the country's leisure-travel capital and one to a long-overlooked corner of the New York market. The low-cost carrier has added service between Tampa and both **Harry Reid International Airport (LAS)** in Las Vegas and **Long Island MacArthur Airport (ISP)** in Islip, New York, giving Florida Gulf Coast travelers two more nonstop options and pushing Breeze into direct competition with several established carriers.
 

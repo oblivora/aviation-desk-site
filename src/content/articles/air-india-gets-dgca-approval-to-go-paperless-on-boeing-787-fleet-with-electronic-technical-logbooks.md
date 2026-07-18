@@ -17,7 +17,7 @@ imageCredit: Representational Image
 publisher: Aman Sharma
 publisherImage: /images/bbr338ba_400x400.jpg
 accent: 4
-featured: true
+featured: false
 ---
 Air India has received formal approval from the **Directorate General of Civil Aviation (DGCA)** to use **Electronic Technical Logbooks (ETLs)** as the primary technical record for its **Boeing 787** **Dreamliner** fleet — officially retiring the paper-based logbooks that have long been standard across the industry.
 

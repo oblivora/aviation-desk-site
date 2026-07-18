@@ -17,7 +17,7 @@ imageCredit: Navi Mumbai International Airport
 publisher: Aman Sharma
 publisherImage: /images/bbr338ba_400x400.jpg
 accent: 4
-featured: true
+featured: false
 ---
 **Navi Mumbai International Airport (NMIA)** has officially entered the international aviation map, with its first scheduled overseas flight — an Air India Express service to Abu Dhabi — departing on **July 15, 2026**. The milestone arrives more than six months after the airport began domestic commercial operations, and over two decades after the project was first conceived.
 
