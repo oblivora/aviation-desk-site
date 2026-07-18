@@ -1,0 +1,164 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Newsletter from '../../components/Newsletter.astro';
+import VideoEmbed from '../../components/VideoEmbed.astro';
+import SocialEmbeds from '../../components/SocialEmbeds.astro';
+import MarketTicker from '../../components/MarketTicker.astro';
+
+export async function getStaticPaths() {
+  const events = await getCollection('liveEvents');
+  return events.map(entry => ({
+    params: { slug: entry.data.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const article = entry.data;
+
+const hue = article.accent || 4;
+const skyTop = `hsl(${hue}, 70%, 92%)`;
+const skyBottom = `hsl(${hue}, 55%, 82%)`;
+const line = `hsl(${hue}, 60%, 45%)`;
+const artId = `article`;
+
+const d = new Date(article.date);
+const formattedDate = d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+
+// --- Video ---
+const videoUrl = article.videoUrl || '';
+const videoFile = article.videoFile || '';
+const hasVideo = !!(videoUrl || videoFile);
+const videoPosition = article.videoPosition || 'end';
+const isLive = videoUrl ? (/youtube\.com\/live\//i.test(videoUrl) || /\.m3u8/i.test(videoUrl) || /live/i.test(videoUrl)) : false;
+const isHls = videoUrl ? /\.m3u8/i.test(videoUrl) : false;
+
+
+// --- Social posts (merge legacy single field + new array) ---
+const socialPosts: { url: string; caption?: string }[] = [];
+if (article.socialPosts && article.socialPosts.length > 0) {
+  socialPosts.push(...article.socialPosts);
+}
+if (article.socialPostUrl && !socialPosts.some(p => p.url === article.socialPostUrl)) {
+  socialPosts.push({ url: article.socialPostUrl, caption: article.socialPostCaption });
+}
+const hasSocial = socialPosts.length > 0;
+
+// --- Location ---
+const hasLocation = !!article.locationName;
+const mapsUrl = article.locationMapQuery
+  ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(article.locationMapQuery)}`
+  : (article.locationAddress
+    ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(article.locationAddress)}`
+    : '#');
+---
+
+<Layout title={`${article.title} — Aviation Desk`} description={article.dek}>
+  <main>
+    <div class="live-article">
+        <div class="live-article__video-section">
+          <div class="live-article__video-wrap">
+            {isLive && (
+              <div class="video-live-badge video-live-badge--overlay">
+                <span class="live-dot"></span>
+                LIVE
+              </div>
+            )}
+            <VideoEmbed
+              videoUrl={videoUrl}
+              videoFile={videoFile}
+              videoCaption=""
+              isLive={false}
+              variant="hero"
+            />
+          </div>
+        </div>
+
+        <div class="live-article__content wrap">
+          <div class="live-article__meta-bar">
+            <span class="eyebrow">{article.category}</span>
+            <div class="live-article__date">
+              {formattedDate} <span class="sep">·</span> {article.readTime}
+            </div>
+          </div>
+
+          <h1 class="live-article__title">{article.title}</h1>
+          <p class="live-article__dek">{article.dek}</p>
+
+          {article.marketUpdates && article.marketUpdates.length > 0 && (
+            <MarketTicker updates={article.marketUpdates} />
+          )}
+
+          {article.videoCaption && (
+            <p class="video-caption" style="margin-bottom: 1.5rem;">{article.videoCaption}</p>
+          )}
+
+          <div class="article-author-block" style="display: flex; align-items: center; gap: 15px; margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid #eee;">
+            {article.publisherImage && (
+              <img src={article.publisherImage} alt={article.publisher} style="width: 48px; height: 48px; border-radius: 50%; object-fit: cover;" />
+            )}
+            <div>
+              {article.publisher && (
+                <div style="font-weight: 600; font-size: 1.05rem;">By <span style="text-decoration: underline; text-decoration-color: var(--red);">{article.publisher}</span></div>
+              )}
+            </div>
+          </div>
+
+          <div class="prose">
+            <Content />
+          </div>
+
+          {hasLocation && (
+            <div class="location-card" id="event-location">
+              <h3 class="location-card__title">Location</h3>
+              <div class="location-card__body">
+                <div class="location-card__pin">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z" fill="currentColor"/>
+                  </svg>
+                </div>
+                <div class="location-card__info">
+                  {article.locationWebsite && (
+                    <a href={article.locationWebsite} target="_blank" rel="noopener noreferrer" class="location-card__website">
+                      {article.locationWebsite.replace(/^https?:\/\//, '')}
+                    </a>
+                  )}
+                  <p class="location-card__name">{article.locationName}</p>
+                  {article.locationAddress && <p class="location-card__address">{article.locationAddress}</p>}
+                  {article.locationHours && <p class="location-card__hours">{article.locationHours}</p>}
+                </div>
+              </div>
+              <div class="location-card__actions">
+                <a href={mapsUrl} target="_blank" rel="noopener noreferrer" class="location-card__btn">Get directions</a>
+                {article.locationContact && (
+                  <a href={article.locationContact.startsWith('http') ? article.locationContact : `tel:${article.locationContact}`} target="_blank" rel="noopener noreferrer" class="location-card__btn">Contact</a>
+                )}
+              </div>
+            </div>
+          )}
+
+          {hasSocial && <SocialEmbeds posts={socialPosts} />}
+        </div>
+      </div>
+  </main>
+
+  {isHls && (
+    <script is:inline src="https://cdn.jsdelivr.net/npm/hls.js@latest/dist/hls.min.js"></script>
+    <script is:inline define:vars={{ hlsUrl: videoUrl }}>
+      document.addEventListener('DOMContentLoaded', () => {
+        const video = document.getElementById('hls-player');
+        if (video && Hls.isSupported()) {
+          const hls = new Hls();
+          hls.loadSource(hlsUrl);
+          hls.attachMedia(video);
+          hls.on(Hls.Events.MANIFEST_PARSED, () => { video.play().catch(() => {}); });
+        } else if (video && video.canPlayType('application/vnd.apple.mpegurl')) {
+          video.src = hlsUrl;
+          video.addEventListener('loadedmetadata', () => { video.play().catch(() => {}); });
+        }
+      });
+    </script>
+  )}
+</Layout>

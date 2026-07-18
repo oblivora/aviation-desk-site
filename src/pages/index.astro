@@ -9,18 +9,18 @@ import { getCollection } from 'astro:content';
 const allArticles = await getCollection('articles');
 const sortedArticles = allArticles.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
-const liveArticles = sortedArticles.filter(a => a.data.articleType === 'live');
-const nonLiveArticles = sortedArticles.filter(a => a.data.articleType !== 'live');
+const allLiveEvents = await getCollection('liveEvents');
+const liveArticles = allLiveEvents.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
-const featured = nonLiveArticles.find(a => a.data.featured) || nonLiveArticles[0] || sortedArticles[0];
-const rest = nonLiveArticles.filter(a => a.id !== featured?.id);
+const featured = sortedArticles.find(a => a.data.featured) || sortedArticles[0];
+const rest = sortedArticles.filter(a => a.id !== featured?.id);
 
 const categories = [...new Set(allArticles.map(a => a.data.category))];
 ---
 
 <Layout>
   <main>
-    {featured && featured.data.articleType !== 'live' && (
+    {featured && (
       <section class="hero wrap" id="hero">
         <HeroCard article={featured.data} />
       </section>

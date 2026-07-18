@@ -29,23 +29,52 @@ collections:
       - {label: "Publisher Avatar", name: "publisherImage", widget: "image", required: false}
       - {label: "Accent Hue (0-360)", name: "accent", widget: "number", default: 4, value_type: "int"}
       - {label: "Featured", name: "featured", widget: "boolean", default: false, required: false}
-      # --- Article Type ---
-      - label: "Article Type"
-        name: "articleType"
-        widget: "select"
-        options:
-          - {label: "Standard Article", value: "standard"}
-          - {label: "Live / Video Article", value: "live"}
-        default: "standard"
-        required: false
-        hint: "Choose 'Live / Video Article' for a video-first layout with the video as the hero"
-      # --- Video / Live Stream ---
+      # --- Video / Live Stream (Optional for standard articles) ---
       - {label: "Video URL (YouTube/Vimeo/Live)", name: "videoUrl", widget: "string", required: false, hint: "Paste a YouTube, Vimeo, or live stream URL"}
       - {label: "Video File (Upload)", name: "videoFile", widget: "file", required: false, hint: "Upload a video file directly"}
       - {label: "Video Caption", name: "videoCaption", widget: "string", required: false}
-      - {label: "Video Position", name: "videoPosition", widget: "select", options: ["end", "body"], default: "end", required: false, hint: "Only for Standard articles. 'body' = within article, 'end' = after article body"}
+      - {label: "Video Position", name: "videoPosition", widget: "select", options: ["end", "body"], default: "end", required: false, hint: "'body' = within article, 'end' = after article body"}
+      # --- Social Media Embeds (multiple) ---
+      - label: "Social Media Posts"
+        name: "socialPosts"
+        widget: "list"
+        required: false
+        hint: "Add one or more social media posts (Twitter/X, Instagram, LinkedIn)"
+        fields:
+          - {label: "Post URL", name: "url", widget: "string"}
+          - {label: "Caption (optional)", name: "caption", widget: "string", required: false}
+      # --- Event Location ---
+      - {label: "Location Name", name: "locationName", widget: "string", required: false, hint: "Venue or place name"}
+      - {label: "Location Address", name: "locationAddress", widget: "text", required: false}
+      - {label: "Location Website", name: "locationWebsite", widget: "string", required: false}
+      - {label: "Location Hours", name: "locationHours", widget: "string", required: false, hint: "e.g. 'Mon-Fri 9AM-6PM' or 'No hours available'"}
+      - {label: "Location Map Query", name: "locationMapQuery", widget: "string", required: false, hint: "Google Maps search query for Get Directions"}
+      - {label: "Location Contact", name: "locationContact", widget: "string", required: false, hint: "Phone number or contact URL (optional)"}
+      - {label: "Body", name: "body", widget: "markdown"}
+
+  - name: "liveEvents"
+    label: "Live Events"
+    folder: "src/content/liveEvents"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Slug", name: "slug", widget: "string"}
+      - {label: "Category", name: "category", widget: "select", options: ["Airlines", "Military", "Technology", "Industry", "Incidents", "Drones", "Space", "Infrastructure"]}
+      - {label: "Event Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false}
+      - {label: "Read Time", name: "readTime", widget: "string", required: false}
+      - {label: "Dek (Subtitle)", name: "dek", widget: "text"}
+      - {label: "Excerpt", name: "excerpt", widget: "text"}
+      - {label: "Image (Fallback)", name: "image", widget: "image", required: false}
+      - {label: "Image Credit", name: "imageCredit", widget: "string", required: false}
+      - {label: "Publisher Name", name: "publisher", widget: "string", required: false}
+      - {label: "Publisher Avatar", name: "publisherImage", widget: "image", required: false}
+      - {label: "Accent Hue (0-360)", name: "accent", widget: "number", default: 4, value_type: "int"}
+      - {label: "Video URL (Primary Hero)", name: "videoUrl", widget: "string", required: false, hint: "Paste a YouTube, Vimeo, or live stream URL to feature at the top"}
+      - {label: "Video File (Primary Hero)", name: "videoFile", widget: "file", required: false, hint: "Upload a video file directly"}
+      - {label: "Video Caption", name: "videoCaption", widget: "string", required: false}
       # --- Market / Ticker (For Live Events) ---
-      - label: "Market / Ticker Updates (Live Events)"
+      - label: "Market / Ticker Updates"
         name: "marketUpdates"
         widget: "list"
         required: false
@@ -60,7 +89,6 @@ collections:
         name: "socialPosts"
         widget: "list"
         required: false
-        hint: "Add one or more social media posts (Twitter/X, Instagram, LinkedIn)"
         fields:
           - {label: "Post URL", name: "url", widget: "string"}
           - {label: "Caption (optional)", name: "caption", widget: "string", required: false}
