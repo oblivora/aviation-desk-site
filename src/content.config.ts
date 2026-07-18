@@ -85,6 +85,7 @@ const liveEvents = defineCollection({
     locationHours: z.string().optional(),
     locationMapQuery: z.string().optional(),
     locationContact: z.string().optional(),
+    relatedArticle: z.string().optional(),
   }),
 });
 

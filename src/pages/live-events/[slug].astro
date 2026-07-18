@@ -5,6 +5,7 @@ import Newsletter from '../../components/Newsletter.astro';
 import VideoEmbed from '../../components/VideoEmbed.astro';
 import SocialEmbeds from '../../components/SocialEmbeds.astro';
 import MarketTicker from '../../components/MarketTicker.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
 
 export async function getStaticPaths() {
   const events = await getCollection('liveEvents');
@@ -17,6 +18,15 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 const article = entry.data;
+
+let relatedArticleData = null;
+if (article.relatedArticle) {
+  const allArticles = await getCollection('articles');
+  const match = allArticles.find(a => a.data.slug === article.relatedArticle);
+  if (match) {
+    relatedArticleData = { ...match.data, collection: 'articles' };
+  }
+}
 
 const hue = article.accent || 4;
 const skyTop = `hsl(${hue}, 70%, 92%)`;
@@ -143,6 +153,13 @@ const mapsUrl = article.locationMapQuery
           )}
 
           {hasSocial && <SocialEmbeds posts={socialPosts} />}
+
+          {relatedArticleData && (
+            <div class="related-story-block" style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1);">
+              <h3 style="margin-bottom: 1.5rem; font-size: 1.25rem;">Additional Story</h3>
+              <ArticleCard article={relatedArticleData} />
+            </div>
+          )}
         </div>
       </div>
   </main>

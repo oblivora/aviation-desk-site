@@ -102,4 +102,13 @@ collections:
       - {label: "Location Hours", name: "locationHours", widget: "string", required: false, hint: "e.g. 'Mon-Fri 9AM-6PM' or 'No hours available'"}
       - {label: "Location Map Query", name: "locationMapQuery", widget: "string", required: false, hint: "Google Maps search query for Get Directions"}
       - {label: "Location Contact", name: "locationContact", widget: "string", required: false, hint: "Phone number or contact URL (optional)"}
+      - label: "Additional / Related Story"
+        name: "relatedArticle"
+        widget: "relation"
+        collection: "articles"
+        search_fields: ["title", "slug"]
+        value_field: "slug"
+        display_fields: ["title"]
+        required: false
+        hint: "Select an already published article to feature at the end of the live event."
       - {label: "Body", name: "body", widget: "markdown"}

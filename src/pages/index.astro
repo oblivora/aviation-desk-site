@@ -13,10 +13,16 @@ const allLiveEvents = await getCollection('liveEvents');
 const liveEventsWithCollection = allLiveEvents.map(a => ({ ...a, data: { ...a.data, collection: 'liveEvents' } }));
 
 const activeLiveArticles = liveEventsWithCollection
-  .filter(a => a.data.isActive !== false)
+  .filter(a => {
+    if (a.data.isActive === false) return false;
+    const eventTimeMs = a.data.date.valueOf();
+    const isExpired = (Date.now() - eventTimeMs) > (12 * 60 * 60 * 1000);
+    return !isExpired;
+  })
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
-const inactiveLiveArticles = liveEventsWithCollection.filter(a => a.data.isActive === false);
+const activeIds = new Set(activeLiveArticles.map(a => a.id));
+const inactiveLiveArticles = liveEventsWithCollection.filter(a => !activeIds.has(a.id));
 
 const combinedLatest = [...articlesWithCollection, ...inactiveLiveArticles]
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
@@ -35,24 +41,29 @@ const categories = [...new Set([...allArticles, ...allLiveEvents].map(a => a.dat
       </section>
     )}
 
-    {activeLiveArticles.length > 0 && (
-      <section class="live-events-section" id="live-events">
-        <div class="wrap">
-          <div class="live-events-head">
-            <div class="video-live-badge" style="margin-bottom:0;">
-              <span class="live-dot"></span>
-              LIVE
-            </div>
-            <h2>Live Events</h2>
+    <section class="live-events-section" id="live-events">
+      <div class="wrap">
+        <div class="live-events-head">
+          <div class="video-live-badge" style="margin-bottom:0;">
+            <span class="live-dot"></span>
+            LIVE
           </div>
+          <h2>Live Events</h2>
+        </div>
+        
+        {activeLiveArticles.length > 0 ? (
           <div class="live-events-grid">
             {activeLiveArticles.map(article => (
               <LiveEventCard article={article.data} />
             ))}
           </div>
-        </div>
-      </section>
-    )}
+        ) : (
+          <div class="live-events-empty" style="text-align: center; padding: 40px 20px; background: rgba(255,255,255,0.02); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 2rem;">
+            <p style="color: #888; font-size: 1.1rem; margin: 0;">There are currently no ongoing live events. Check back later!</p>
+          </div>
+        )}
+      </div>
+    </section>
 
     <section class="wrap">
       <div class="section-head" id="grid-head">
