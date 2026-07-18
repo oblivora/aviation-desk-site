@@ -10,7 +10,7 @@ dek: India's private space sector gets its biggest test yet as Skyroot attempts
 excerpt: Hyderabad-based Skyroot Aerospace is set to attempt India's first
   privately developed orbital rocket launch today, with Vikram-1 lifting off
   from Sriharikota under Mission Aagaman.
-image: /images/hnedy6jauaa8r1e.jpg
+image: https://images.ctfassets.net/17si5cpawjzf/5ZbfMTDBp8wpTZOPy6pR5O/5fc61bc1e194a7a515e4afafbc12e297/siemens-skyroot-aerospace-newsroom-01-1280x720.jpg
 imageCredit: Skyroot Aerospace
 publisher: Aman Sharma
 publisherImage: /images/bbr338ba_400x400.jpg
@@ -21,11 +21,11 @@ videoFile: ""
 videoCaption: Vikram-1 | Test Flight-1 | Skyroot | Mission Aagaman| India's
   First Private Orbital Rocket Launch
 videoPosition: end
-socialPostUrl: https://x.com/SkyrootA/status/2078274917855055911?s=20
-socialPostCaption: Watch Vikram-1's Test Flight-1 — Mission Aagaman
 locationName: "Spaceport: Satish Dhawan Space Centre (SDSC-SHAR)"
+socialPostUrl: https://x.com/SkyrootA/status/2078274917855055911?s=20
 locationAddress: Sriharikota barrier island, Nellore district, Andhra Pradesh, India
 locationWebsite: https://maps.app.goo.gl/orQdGzBZ2GDRZQJ7A
+socialPostCaption: Watch Vikram-1's Test Flight-1 — Mission Aagaman
 ---
 Six years after two former ISRO scientists set out to build India's first private rocket company, Skyroot Aerospace is standing at the edge of its biggest test yet. Today, Saturday, July 18, 2026, at 11:30 AM IST (6:00 AM UTC / 2:00 AM EDT), the Hyderabad-based startup will attempt to send Vikram-1 — its first orbital-class launch vehicle — into space from the First Launch Pad at ISRO's Satish Dhawan Space Centre in Sriharikota. If it works, Skyroot becomes the first private company in India to put a rocket into orbit.
 
