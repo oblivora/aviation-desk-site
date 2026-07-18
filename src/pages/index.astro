@@ -2,22 +2,48 @@
 import Layout from '../layouts/Layout.astro';
 import HeroCard from '../components/HeroCard.astro';
 import ArticleCard from '../components/ArticleCard.astro';
+import LiveEventCard from '../components/LiveEventCard.astro';
 import Newsletter from '../components/Newsletter.astro';
 import { getCollection } from 'astro:content';
 
 const allArticles = await getCollection('articles');
 const sortedArticles = allArticles.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
-const featured = sortedArticles.find(a => a.data.featured) || sortedArticles[0];
-const rest = sortedArticles.filter(a => a.id !== featured.id);
+
+const liveArticles = sortedArticles.filter(a => a.data.articleType === 'live');
+const nonLiveArticles = sortedArticles.filter(a => a.data.articleType !== 'live');
+
+const featured = nonLiveArticles.find(a => a.data.featured) || nonLiveArticles[0] || sortedArticles[0];
+const rest = nonLiveArticles.filter(a => a.id !== featured?.id);
 
 const categories = [...new Set(allArticles.map(a => a.data.category))];
 ---
 
 <Layout>
   <main>
-    <section class="hero wrap" id="hero">
-      <HeroCard article={featured.data} />
-    </section>
+    {featured && featured.data.articleType !== 'live' && (
+      <section class="hero wrap" id="hero">
+        <HeroCard article={featured.data} />
+      </section>
+    )}
+
+    {liveArticles.length > 0 && (
+      <section class="live-events-section" id="live-events">
+        <div class="wrap">
+          <div class="live-events-head">
+            <div class="video-live-badge" style="margin-bottom:0;">
+              <span class="live-dot"></span>
+              LIVE
+            </div>
+            <h2>Live Events</h2>
+          </div>
+          <div class="live-events-grid">
+            {liveArticles.map(article => (
+              <LiveEventCard article={article.data} />
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
 
     <section class="wrap">
       <div class="section-head" id="grid-head">

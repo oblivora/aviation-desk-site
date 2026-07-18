@@ -1423,6 +1423,121 @@ button:focus-visible {
 }
 
 /* =========================================================================
+   LIVE EVENTS SECTION (HOME PAGE)
+   ========================================================================= */
+.live-events-section {
+  background: var(--ink);
+  color: #fff;
+  padding: 48px 0;
+  margin-top: 48px;
+  margin-bottom: 24px;
+}
+
+.live-events-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.live-events-head h2 {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 600;
+  margin: 0;
+  color: #fff;
+}
+
+.live-events-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.live-event-card {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 28px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 20px;
+  transition: background 0.2s ease, border-color 0.2s ease;
+  text-decoration: none;
+  color: #fff;
+}
+
+.live-event-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.live-event-card__art {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #000;
+}
+
+.live-event-card__art-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+}
+
+.video-live-badge--card {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 10;
+}
+
+.live-event-card__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.live-event-card__content h3 {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0 0 12px;
+  line-height: 1.2;
+}
+
+.live-event-card__content p.excerpt {
+  color: #a0a0a0;
+  font-size: 15px;
+  margin: 0 0 16px;
+  flex-grow: 1;
+}
+
+.eyebrow--dark {
+  color: var(--red);
+}
+
+.flight-link--dark {
+  color: #fff;
+}
+
+.meta-line--dark {
+  color: #888;
+}
+
+.meta-line--dark .sep {
+  color: #555;
+}
+
+@media (max-width: 768px) {
+  .live-event-card {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+/* =========================================================================
    SINGLE ARTICLE LAYOUT
    ========================================================================= */
 .single-article {
