@@ -18,7 +18,7 @@ collections:
     fields:
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Slug", name: "slug", widget: "string"}
-      - {label: "Category", name: "category", widget: "select", options: ["Airlines", "Military", "Technology", "Industry", "Incidents", "Drones"]}
+      - {label: "Category", name: "category", widget: "select", options: ["Airlines", "Military", "Technology", "Industry", "Incidents", "Drones", "Space", "Infrastructure"]}
       - {label: "Publish Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false}
       - {label: "Read Time", name: "readTime", widget: "string"}
       - {label: "Dek (Subtitle)", name: "dek", widget: "text"}
