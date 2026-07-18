@@ -28,6 +28,68 @@ const formattedDate = d.toLocaleDateString("en-US", {
   day: "numeric",
   year: "numeric",
 });
+
+// --- Video helpers ---
+function getYouTubeId(url: string): string | null {
+  const patterns = [
+    /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/live\/)([a-zA-Z0-9_-]{11})/,
+    /youtube\.com\/shorts\/([a-zA-Z0-9_-]{11})/,
+  ];
+  for (const p of patterns) {
+    const m = url.match(p);
+    if (m) return m[1];
+  }
+  return null;
+}
+
+function getVimeoId(url: string): string | null {
+  const m = url.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+  return m ? m[1] : null;
+}
+
+function isLiveStream(url: string): boolean {
+  return /youtube\.com\/live\//i.test(url) || /\.m3u8/i.test(url) || /live/i.test(url);
+}
+
+const videoUrl = article.videoUrl || '';
+const videoFile = article.videoFile || '';
+const hasVideo = !!(videoUrl || videoFile);
+const videoPosition = article.videoPosition || 'end';
+const ytId = videoUrl ? getYouTubeId(videoUrl) : null;
+const vimeoId = videoUrl ? getVimeoId(videoUrl) : null;
+const isLive = videoUrl ? isLiveStream(videoUrl) : false;
+const isHls = videoUrl ? /\.m3u8/i.test(videoUrl) : false;
+
+// --- Social helpers ---
+const socialUrl = article.socialPostUrl || '';
+const hasSocial = !!socialUrl;
+
+function getSocialPlatform(url: string): 'twitter' | 'instagram' | 'linkedin' | 'unknown' {
+  if (/twitter\.com|x\.com/i.test(url)) return 'twitter';
+  if (/instagram\.com/i.test(url)) return 'instagram';
+  if (/linkedin\.com/i.test(url)) return 'linkedin';
+  return 'unknown';
+}
+
+function getLinkedInEmbedUrl(url: string): string {
+  // LinkedIn post embed URL format
+  const m = url.match(/linkedin\.com\/(?:posts|feed\/update)\/([^/?]+)/);
+  if (m) {
+    return `https://www.linkedin.com/embed/feed/update/${m[1]}`;
+  }
+  // fallback: try to use the URL directly with embed format
+  return url.replace('linkedin.com/', 'linkedin.com/embed/');
+}
+
+const socialPlatform = hasSocial ? getSocialPlatform(socialUrl) : 'unknown';
+
+// --- Location ---
+const hasLocation = !!article.locationName;
+const mapsUrl = article.locationMapQuery
+  ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(article.locationMapQuery)}`
+  : (article.locationAddress
+    ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(article.locationAddress)}`
+    : '#');
 ---
 
 <Layout title={`${article.title} — Aviation Desk`} description={article.dek}>
@@ -38,8 +100,6 @@ const formattedDate = d.toLocaleDateString("en-US", {
         <span class="eyebrow">{article.category}</span>
         <h1>{article.title}</h1>
         <p class="dek">{article.dek}</p>
-        
-
       </div>
       
       <div class="article-hero-art">
@@ -87,7 +147,206 @@ const formattedDate = d.toLocaleDateString("en-US", {
       
       <div class="prose">
         <Content />
+
+        {/* Video — position: body (inline within prose) */}
+        {hasVideo && videoPosition === 'body' && (
+          <div class="video-embed video-embed--body">
+            {isLive && (
+              <div class="video-live-badge">
+                <span class="live-dot"></span>
+                LIVE
+              </div>
+            )}
+            {ytId ? (
+              <div class="video-responsive">
+                <iframe
+                  src={`https://www.youtube.com/embed/${ytId}?autoplay=0&rel=0`}
+                  title={article.videoCaption || 'Video'}
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                ></iframe>
+              </div>
+            ) : vimeoId ? (
+              <div class="video-responsive">
+                <iframe
+                  src={`https://player.vimeo.com/video/${vimeoId}?title=0&byline=0&portrait=0`}
+                  title={article.videoCaption || 'Video'}
+                  frameborder="0"
+                  allow="autoplay; fullscreen; picture-in-picture"
+                  allowfullscreen
+                ></iframe>
+              </div>
+            ) : isHls ? (
+              <div class="video-responsive">
+                <video id="hls-player" controls playsinline class="video-native"></video>
+              </div>
+            ) : videoFile ? (
+              <div class="video-responsive video-responsive--native">
+                <video controls playsinline class="video-native">
+                  <source src={videoFile} />
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            ) : videoUrl ? (
+              <div class="video-responsive">
+                <iframe
+                  src={videoUrl}
+                  title={article.videoCaption || 'Video'}
+                  frameborder="0"
+                  allow="autoplay; fullscreen"
+                  allowfullscreen
+                ></iframe>
+              </div>
+            ) : null}
+            {article.videoCaption && (
+              <p class="video-caption">{article.videoCaption}</p>
+            )}
+          </div>
+        )}
       </div>
+
+      {/* Video — position: end (after prose) */}
+      {hasVideo && videoPosition === 'end' && (
+        <div class="video-embed video-embed--end">
+          {isLive && (
+            <div class="video-live-badge">
+              <span class="live-dot"></span>
+              LIVE
+            </div>
+          )}
+          {ytId ? (
+            <div class="video-responsive">
+              <iframe
+                src={`https://www.youtube.com/embed/${ytId}?autoplay=0&rel=0`}
+                title={article.videoCaption || 'Video'}
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+              ></iframe>
+            </div>
+          ) : vimeoId ? (
+            <div class="video-responsive">
+              <iframe
+                src={`https://player.vimeo.com/video/${vimeoId}?title=0&byline=0&portrait=0`}
+                title={article.videoCaption || 'Video'}
+                frameborder="0"
+                allow="autoplay; fullscreen; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </div>
+          ) : isHls ? (
+            <div class="video-responsive">
+              <video id="hls-player" controls playsinline class="video-native"></video>
+            </div>
+          ) : videoFile ? (
+            <div class="video-responsive video-responsive--native">
+              <video controls playsinline class="video-native">
+                <source src={videoFile} />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          ) : videoUrl ? (
+            <div class="video-responsive">
+              <iframe
+                src={videoUrl}
+                title={article.videoCaption || 'Video'}
+                frameborder="0"
+                allow="autoplay; fullscreen"
+                allowfullscreen
+              ></iframe>
+            </div>
+          ) : null}
+          {article.videoCaption && (
+            <p class="video-caption">{article.videoCaption}</p>
+          )}
+        </div>
+      )}
+
+      {/* Event Location Card */}
+      {hasLocation && (
+        <div class="location-card" id="event-location">
+          <h3 class="location-card__title">Location</h3>
+          <div class="location-card__body">
+            <div class="location-card__pin">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z" fill="currentColor"/>
+              </svg>
+            </div>
+            <div class="location-card__info">
+              {article.locationWebsite && (
+                <a href={article.locationWebsite} target="_blank" rel="noopener noreferrer" class="location-card__website">
+                  {article.locationWebsite.replace(/^https?:\/\//, '')}
+                </a>
+              )}
+              <p class="location-card__name">{article.locationName}</p>
+              {article.locationAddress && (
+                <p class="location-card__address">{article.locationAddress}</p>
+              )}
+              {article.locationHours && (
+                <p class="location-card__hours">{article.locationHours}</p>
+              )}
+            </div>
+          </div>
+          <div class="location-card__actions">
+            <a href={mapsUrl} target="_blank" rel="noopener noreferrer" class="location-card__btn">
+              Get directions
+            </a>
+            {article.locationContact && (
+              <a href={article.locationContact.startsWith('http') ? article.locationContact : `tel:${article.locationContact}`} target="_blank" rel="noopener noreferrer" class="location-card__btn">
+                Contact
+              </a>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Social Media Embed */}
+      {hasSocial && (
+        <div class="social-embed" id="social-embed">
+          <h3 class="social-embed__title">
+            {socialPlatform === 'twitter' && (
+              <svg class="social-embed__icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            )}
+            {socialPlatform === 'instagram' && (
+              <svg class="social-embed__icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            )}
+            {socialPlatform === 'linkedin' && (
+              <svg class="social-embed__icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            )}
+            Related Post
+          </h3>
+          {article.socialPostCaption && (
+            <p class="social-embed__caption">{article.socialPostCaption}</p>
+          )}
+          <div class="social-embed__content" id="social-embed-content">
+            {socialPlatform === 'twitter' && (
+              <blockquote class="twitter-tweet" data-theme="light">
+                <a href={socialUrl}>Loading tweet…</a>
+              </blockquote>
+            )}
+            {socialPlatform === 'instagram' && (
+              <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink={socialUrl} style="max-width:540px; width:100%;">
+                <a href={socialUrl} target="_blank">Loading Instagram post…</a>
+              </blockquote>
+            )}
+            {socialPlatform === 'linkedin' && (
+              <iframe
+                src={getLinkedInEmbedUrl(socialUrl)}
+                class="linkedin-embed-iframe"
+                frameborder="0"
+                allowfullscreen
+                title="LinkedIn Post"
+              ></iframe>
+            )}
+            {socialPlatform === 'unknown' && (
+              <a href={socialUrl} target="_blank" rel="noopener noreferrer" class="social-embed__fallback">
+                View post →
+              </a>
+            )}
+          </div>
+        </div>
+      )}
 
     </article>
 
@@ -95,4 +354,37 @@ const formattedDate = d.toLocaleDateString("en-US", {
       <Newsletter variant="inline" />
     </div> -->
   </main>
+
+  {/* HLS.js for live stream support */}
+  {isHls && (
+    <script is:inline src="https://cdn.jsdelivr.net/npm/hls.js@latest/dist/hls.min.js"></script>
+    <script is:inline define:vars={{ hlsUrl: videoUrl }}>
+      document.addEventListener('DOMContentLoaded', () => {
+        const video = document.getElementById('hls-player');
+        if (video && Hls.isSupported()) {
+          const hls = new Hls();
+          hls.loadSource(hlsUrl);
+          hls.attachMedia(video);
+          hls.on(Hls.Events.MANIFEST_PARSED, () => {
+            video.play().catch(() => {});
+          });
+        } else if (video && video.canPlayType('application/vnd.apple.mpegurl')) {
+          video.src = hlsUrl;
+          video.addEventListener('loadedmetadata', () => {
+            video.play().catch(() => {});
+          });
+        }
+      });
+    </script>
+  )}
+
+  {/* Load Twitter widget script */}
+  {socialPlatform === 'twitter' && (
+    <script is:inline async src="https://platform.twitter.com/widgets.js"></script>
+  )}
+
+  {/* Load Instagram embed script */}
+  {socialPlatform === 'instagram' && (
+    <script is:inline async src="https://www.instagram.com/embed.js"></script>
+  )}
 </Layout>

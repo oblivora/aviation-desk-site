@@ -17,6 +17,21 @@ const articles = defineCollection({
     publisherImage: z.string().optional(),
     accent: z.number(),
     featured: z.boolean().optional(),
+    // Video / Live Stream
+    videoUrl: z.string().optional(),
+    videoFile: z.string().optional(),
+    videoCaption: z.string().optional(),
+    videoPosition: z.enum(['body', 'end']).optional().default('end'),
+    // Social Media Embed
+    socialPostUrl: z.string().optional(),
+    socialPostCaption: z.string().optional(),
+    // Event Location
+    locationName: z.string().optional(),
+    locationAddress: z.string().optional(),
+    locationWebsite: z.string().optional(),
+    locationHours: z.string().optional(),
+    locationMapQuery: z.string().optional(),
+    locationContact: z.string().optional(),
   }),
 });
 

@@ -29,4 +29,19 @@ collections:
       - {label: "Publisher Avatar", name: "publisherImage", widget: "image", required: false}
       - {label: "Accent Hue (0-360)", name: "accent", widget: "number", default: 4, value_type: "int"}
       - {label: "Featured", name: "featured", widget: "boolean", default: false, required: false}
+      # --- Video / Live Stream ---
+      - {label: "Video URL (YouTube/Vimeo/Live)", name: "videoUrl", widget: "string", required: false, hint: "Paste a YouTube, Vimeo, or live stream URL"}
+      - {label: "Video File (Upload)", name: "videoFile", widget: "file", required: false, hint: "Upload a video file directly"}
+      - {label: "Video Caption", name: "videoCaption", widget: "string", required: false}
+      - {label: "Video Position", name: "videoPosition", widget: "select", options: ["end", "body"], default: "end", required: false, hint: "'body' = within article, 'end' = after article body"}
+      # --- Social Media Embed ---
+      - {label: "Social Post URL", name: "socialPostUrl", widget: "string", required: false, hint: "Twitter/X, Instagram, or LinkedIn post URL"}
+      - {label: "Social Post Caption", name: "socialPostCaption", widget: "string", required: false}
+      # --- Event Location ---
+      - {label: "Location Name", name: "locationName", widget: "string", required: false, hint: "Venue or place name"}
+      - {label: "Location Address", name: "locationAddress", widget: "text", required: false}
+      - {label: "Location Website", name: "locationWebsite", widget: "string", required: false}
+      - {label: "Location Hours", name: "locationHours", widget: "string", required: false, hint: "e.g. 'Mon-Fri 9AM-6PM' or 'No hours available'"}
+      - {label: "Location Map Query", name: "locationMapQuery", widget: "string", required: false, hint: "Google Maps search query for Get Directions"}
+      - {label: "Location Contact", name: "locationContact", widget: "string", required: false, hint: "Phone number or contact URL (optional)"}
       - {label: "Body", name: "body", widget: "markdown"}
