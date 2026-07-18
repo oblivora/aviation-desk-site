@@ -24,6 +24,13 @@ const articles = defineCollection({
     videoFile: z.string().optional(),
     videoCaption: z.string().optional(),
     videoPosition: z.enum(['body', 'end']).optional().default('end'),
+    // Market / Ticker Updates
+    marketUpdates: z.array(z.object({
+      symbol: z.string(),
+      value: z.string(),
+      change: z.string(),
+      trend: z.enum(['up', 'down', 'neutral']),
+    })).optional(),
     // Social Media Embeds (multiple posts)
     socialPosts: z.array(z.object({
       url: z.string(),

@@ -1,0 +1,87 @@
+---
+export interface MarketUpdate {
+  symbol: string;
+  value: string;
+  change: string;
+  trend: 'up' | 'down' | 'neutral';
+}
+
+interface Props {
+  updates: MarketUpdate[];
+}
+
+const { updates } = Astro.props;
+
+function getTrendColor(trend: string) {
+  if (trend === 'up') return 'color: #10B981;'; // Green
+  if (trend === 'down') return 'color: #EF4444;'; // Red
+  return 'color: #888;';
+}
+
+function getTrendIcon(trend: string) {
+  if (trend === 'up') return '▲';
+  if (trend === 'down') return '▼';
+  return '—';
+}
+---
+
+<div class="market-ticker-wrap">
+  <div class="market-ticker">
+    {updates.map((update) => (
+      <div class="market-ticker__item">
+        <span class="market-ticker__symbol">{update.symbol}</span>
+        <span class="market-ticker__value">{update.value}</span>
+        <span class="market-ticker__change" style={getTrendColor(update.trend)}>
+          {getTrendIcon(update.trend)} {update.change}
+        </span>
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .market-ticker-wrap {
+    margin: 24px 0 32px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    padding: 16px 20px;
+  }
+  
+  .market-ticker {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    align-items: center;
+  }
+  
+  .market-ticker__item {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 14px;
+  }
+  
+  .market-ticker__symbol {
+    color: #fff;
+    font-weight: 600;
+  }
+  
+  .market-ticker__value {
+    color: #ccc;
+  }
+  
+  .market-ticker__change {
+    font-weight: 500;
+    font-size: 13px;
+  }
+  
+  @media (max-width: 560px) {
+    .market-ticker {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+  }
+</style>

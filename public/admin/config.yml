@@ -44,6 +44,17 @@ collections:
       - {label: "Video File (Upload)", name: "videoFile", widget: "file", required: false, hint: "Upload a video file directly"}
       - {label: "Video Caption", name: "videoCaption", widget: "string", required: false}
       - {label: "Video Position", name: "videoPosition", widget: "select", options: ["end", "body"], default: "end", required: false, hint: "Only for Standard articles. 'body' = within article, 'end' = after article body"}
+      # --- Market / Ticker (For Live Events) ---
+      - label: "Market / Ticker Updates (Live Events)"
+        name: "marketUpdates"
+        widget: "list"
+        required: false
+        hint: "Add market movements or live ticker stats (e.g. Nifty 50: +1.2%)"
+        fields:
+          - {label: "Index / Symbol", name: "symbol", widget: "string", hint: "e.g. Nifty 50, BSE Sensex, AAPL"}
+          - {label: "Value", name: "value", widget: "string", hint: "e.g. 24,500.25"}
+          - {label: "Change", name: "change", widget: "string", hint: "e.g. +150.50 or -45.20"}
+          - {label: "Trend", name: "trend", widget: "select", options: ["up", "down", "neutral"]}
       # --- Social Media Embeds (multiple) ---
       - label: "Social Media Posts"
         name: "socialPosts"

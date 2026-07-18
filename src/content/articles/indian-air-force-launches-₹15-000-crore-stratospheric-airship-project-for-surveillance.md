@@ -22,6 +22,15 @@ featured: true
 articleType: "live"
 videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
 videoCaption: "IAF Stratospheric Airship Concept — Demonstration Video"
+marketUpdates:
+  - symbol: "NIFTY 50"
+    value: "24,500.15"
+    change: "+150.25 (0.61%)"
+    trend: "up"
+  - symbol: "HAL"
+    value: "4,200.00"
+    change: "-12.50 (0.30%)"
+    trend: "down"
 socialPosts:
   - url: "https://x.com/IAaborneAssets/status/1914625398432190783"
     caption: "The IAF shared this update about the AS-HAPS programme on X."
