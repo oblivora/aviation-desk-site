@@ -58,6 +58,8 @@ const liveEvents = defineCollection({
     dek: z.string(),
     excerpt: z.string(),
     date: z.coerce.date(),
+    eventTime: z.string().optional(),
+    timeZone: z.string().optional(),
     readTime: z.string().optional(),
     image: z.string().optional(),
     imageCredit: z.string().optional(),

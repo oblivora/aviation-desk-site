@@ -6,6 +6,8 @@ export interface ArticleProps {
   title: string;
   excerpt: string;
   date: string;
+  eventTime?: string;
+  timeZone?: string;
   readTime: string;
   image?: string;
   publisher?: string;
@@ -98,7 +100,7 @@ const isHls = article.videoUrl ? /\.m3u8/i.test(article.videoUrl) : false;
         </div>
       )}
       <div style="display: flex; align-items: center; gap: 6px;">
-        <span>{formattedDate}</span>
+        <span>{formattedDate}{article.eventTime ? ` at ${article.eventTime} ${article.timeZone || ''}` : ''}</span>
         <span class="sep">·</span>
         <span>{article.readTime}</span>
       </div>

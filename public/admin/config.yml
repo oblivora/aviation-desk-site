@@ -63,6 +63,8 @@ collections:
       - {label: "Is Active Live Event", name: "isActive", widget: "boolean", default: true, required: false, hint: "If unchecked, the event is removed from the top Live Events section and appears as a normal article in the Latest Stories grid."}
       - {label: "Category", name: "category", widget: "select", options: ["Airlines", "Military", "Technology", "Industry", "Incidents", "Drones", "Space", "Infrastructure"]}
       - {label: "Event Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false}
+      - {label: "Event Time", name: "eventTime", widget: "string", required: false, hint: "e.g. 10:30 AM or 14:00"}
+      - {label: "Time Zone", name: "timeZone", widget: "string", required: false, hint: "e.g. IST, EST, GMT"}
       - {label: "Read Time", name: "readTime", widget: "string", required: false}
       - {label: "Dek (Subtitle)", name: "dek", widget: "text"}
       - {label: "Excerpt", name: "excerpt", widget: "text"}

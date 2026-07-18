@@ -80,7 +80,10 @@ const mapsUrl = article.locationMapQuery
           <div class="live-article__meta-bar">
             <span class="eyebrow">{article.category}</span>
             <div class="live-article__date">
-              {formattedDate} <span class="sep">·</span> {article.readTime}
+              {formattedDate}
+              {article.eventTime && ` at ${article.eventTime}`}
+              {article.timeZone && ` ${article.timeZone}`}
+              <span class="sep">·</span> {article.readTime}
             </div>
           </div>
 
