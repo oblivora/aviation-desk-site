@@ -17,7 +17,7 @@ publisherImage: /images/bbr338ba_400x400.jpg
 accent: 4
 featured: true
 videoUrl: https://www.youtube.com/live/-lLd1cI7v0U?si=nxOeb_smGSMP7O-E
-videoFile: https://www.youtube.com/live/-lLd1cI7v0U?si=nxOeb_smGSMP7O-E
+videoFile: ""
 videoCaption: Vikram-1 | Test Flight-1 | Skyroot | Mission Aagaman| India's
   First Private Orbital Rocket Launch
 videoPosition: end
