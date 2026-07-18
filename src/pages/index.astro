@@ -7,15 +7,24 @@ import Newsletter from '../components/Newsletter.astro';
 import { getCollection } from 'astro:content';
 
 const allArticles = await getCollection('articles');
-const sortedArticles = allArticles.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const articlesWithCollection = allArticles.map(a => ({ ...a, data: { ...a.data, collection: 'articles' } }));
 
 const allLiveEvents = await getCollection('liveEvents');
-const liveArticles = allLiveEvents.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const liveEventsWithCollection = allLiveEvents.map(a => ({ ...a, data: { ...a.data, collection: 'liveEvents' } }));
 
-const featured = sortedArticles.find(a => a.data.featured) || sortedArticles[0];
-const rest = sortedArticles.filter(a => a.id !== featured?.id);
+const activeLiveArticles = liveEventsWithCollection
+  .filter(a => a.data.isActive !== false)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
-const categories = [...new Set(allArticles.map(a => a.data.category))];
+const inactiveLiveArticles = liveEventsWithCollection.filter(a => a.data.isActive === false);
+
+const combinedLatest = [...articlesWithCollection, ...inactiveLiveArticles]
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const featured = combinedLatest.find(a => a.data.featured) || combinedLatest[0];
+const rest = combinedLatest.filter(a => a.id !== featured?.id);
+
+const categories = [...new Set([...allArticles, ...allLiveEvents].map(a => a.data.category))];
 ---
 
 <Layout>
@@ -26,7 +35,7 @@ const categories = [...new Set(allArticles.map(a => a.data.category))];
       </section>
     )}
 
-    {liveArticles.length > 0 && (
+    {activeLiveArticles.length > 0 && (
       <section class="live-events-section" id="live-events">
         <div class="wrap">
           <div class="live-events-head">
@@ -37,7 +46,7 @@ const categories = [...new Set(allArticles.map(a => a.data.category))];
             <h2>Live Events</h2>
           </div>
           <div class="live-events-grid">
-            {liveArticles.map(article => (
+            {activeLiveArticles.map(article => (
               <LiveEventCard article={article.data} />
             ))}
           </div>

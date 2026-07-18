@@ -11,9 +11,11 @@ export interface ArticleProps {
   image?: string;
   publisher?: string;
   publisherImage?: string;
+  collection?: 'articles' | 'liveEvents';
 }
 
 const { article } = Astro.props as { article: ArticleProps };
+const basePath = article.collection === 'liveEvents' ? '/live-events' : '/articles';
 
 const hue = article.accent || 4;
 const skyTop = `hsl(${hue}, 70%, 92%)`;
@@ -30,7 +32,7 @@ const formattedDate = d.toLocaleDateString("en-US", {
 ---
 
 <article class="card">
-  <a href={`/articles/${article.slug}`} class="card-art" aria-label={article.title}>
+  <a href={`${basePath}/${article.slug}`} class="card-art" aria-label={article.title}>
     {article.image ? (
       <img src={article.image} alt={article.title} class="art" style="object-fit: cover; width: 100%; height: 100%;" />
     ) : (
@@ -53,7 +55,7 @@ const formattedDate = d.toLocaleDateString("en-US", {
   </a>
   <span class="eyebrow">{article.category}</span>
   <h3>
-    <a href={`/articles/${article.slug}`} class="headline-link flight-link">
+    <a href={`${basePath}/${article.slug}`} class="headline-link flight-link">
       {article.title}
       <span class="trace" aria-hidden="true">
         <svg viewBox="0 0 240 10" preserveAspectRatio="none">

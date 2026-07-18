@@ -53,6 +53,7 @@ const liveEvents = defineCollection({
   schema: z.object({
     title: z.string(),
     slug: z.string(),
+    isActive: z.boolean().optional().default(true),
     category: z.string(),
     dek: z.string(),
     excerpt: z.string(),
