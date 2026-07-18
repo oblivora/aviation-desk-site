@@ -10,6 +10,8 @@ export interface ArticleProps {
   image?: string;
   publisher?: string;
   publisherImage?: string;
+  videoUrl?: string;
+  videoFile?: string;
 }
 
 const { article } = Astro.props as { article: ArticleProps };
@@ -20,11 +22,46 @@ const formattedDate = d.toLocaleDateString("en-US", {
   day: "numeric",
   year: "numeric",
 });
+
+function getYouTubeId(url: string): string | null {
+  if (!url) return null;
+  const patterns = [
+    /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/live\/)([a-zA-Z0-9_-]{11})/,
+    /youtube\.com\/shorts\/([a-zA-Z0-9_-]{11})/,
+  ];
+  for (const p of patterns) {
+    const m = url.match(p);
+    if (m) return m[1];
+  }
+  return null;
+}
+
+function getVimeoId(url: string): string | null {
+  if (!url) return null;
+  const m = url.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+  return m ? m[1] : null;
+}
+
+const ytId = getYouTubeId(article.videoUrl || '');
+const vimeoId = getVimeoId(article.videoUrl || '');
+const isHls = article.videoUrl ? /\.m3u8/i.test(article.videoUrl) : false;
 ---
 
 <a href={`/live-events/${article.slug}`} class="live-event-card">
   <div class="live-event-card__art">
-    {article.image ? (
+    {article.videoFile ? (
+      <video src={article.videoFile} class="art" style="object-fit: cover; width: 100%; height: 100%;" autoplay muted loop playsinline></video>
+    ) : ytId ? (
+      <div style="position: relative; width: 100%; height: 100%; overflow: hidden; pointer-events: none;">
+        <iframe src={`https://www.youtube.com/embed/${ytId}?autoplay=1&mute=1&controls=0&modestbranding=1&loop=1&playlist=${ytId}&rel=0`} class="art" style="width: 100%; height: 100%; position: absolute; border: 0;" allow="autoplay; fullscreen" allowfullscreen></iframe>
+      </div>
+    ) : vimeoId ? (
+      <div style="position: relative; width: 100%; height: 100%; overflow: hidden; pointer-events: none;">
+        <iframe src={`https://player.vimeo.com/video/${vimeoId}?autoplay=1&muted=1&controls=0&loop=1&background=1`} class="art" style="width: 100%; height: 100%; position: absolute; border: 0;" allow="autoplay; fullscreen" allowfullscreen></iframe>
+      </div>
+    ) : isHls ? (
+       <video id={`hls-card-${article.slug}`} class="art hls-card-player" style="object-fit: cover; width: 100%; height: 100%;" autoplay muted loop playsinline data-hls-url={article.videoUrl}></video>
+    ) : article.image ? (
       <img src={article.image} alt={article.title} class="art" style="object-fit: cover; width: 100%; height: 100%;" />
     ) : (
       <div class="live-event-card__art-placeholder"></div>
@@ -68,3 +105,39 @@ const formattedDate = d.toLocaleDateString("en-US", {
     </div>
   </div>
 </a>
+
+<script>
+  // @ts-nocheck
+  document.addEventListener('DOMContentLoaded', () => {
+    const hlsPlayers = document.querySelectorAll('.hls-card-player');
+    if (hlsPlayers.length > 0) {
+      if (!window.Hls) {
+        const script = document.createElement('script');
+        script.src = 'https://cdn.jsdelivr.net/npm/hls.js@latest/dist/hls.min.js';
+        script.onload = () => initHls(hlsPlayers);
+        document.head.appendChild(script);
+      } else {
+        initHls(hlsPlayers);
+      }
+    }
+
+    function initHls(players) {
+      players.forEach(video => {
+        const url = video.getAttribute('data-hls-url');
+        if (window.Hls.isSupported()) {
+          const hls = new window.Hls();
+          hls.loadSource(url);
+          hls.attachMedia(video);
+          hls.on(window.Hls.Events.MANIFEST_PARSED, () => {
+            video.play().catch(() => {});
+          });
+        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+          video.src = url;
+          video.addEventListener('loadedmetadata', () => {
+            video.play().catch(() => {});
+          });
+        }
+      });
+    }
+  });
+</script>
